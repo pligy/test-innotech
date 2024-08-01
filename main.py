@@ -4,7 +4,6 @@ from typing import Dict
 
 app = FastAPI()
 
-# Sample AppSec practices data
 appsec_practices = {
     "practice_main": {
         "description": "Main AppSec practices",
@@ -14,7 +13,6 @@ appsec_practices = {
         "description": "Static Application Security Testing",
         "details": "Analysis of source code for security vulnerabilities."
     },
-    # Add more practices as needed
 }
 
 @app.get("/", response_class=RedirectResponse)
@@ -43,7 +41,6 @@ async def login(username: str = Form(...), password: str = Form(...)):
 
 @app.get("/appsec", response_class=JSONResponse)
 async def appsec(key: str):
-    print(f"Received key: {key}")
     if key in appsec_practices:
         return appsec_practices[key]
     else:

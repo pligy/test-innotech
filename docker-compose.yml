@@ -2,11 +2,8 @@ version: '3.3'
 
 services:
   app:
+    image: pl1gy/test-innotech
     container_name: app
-    build:
-      context: .
-      args:
-        DEFAULT_PORT: ${DEFAULT_PORT}
     ports:
       - "${DEFAULT_PORT}:${DEFAULT_PORT}"
     env_file:

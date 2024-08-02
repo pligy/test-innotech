@@ -3,7 +3,7 @@ from pydantic import BaseModel, validator
 from app.service.constants import APPSEC_PRACTICES
 
 
-class AppSecRequest(BaseModel):
+class AppSecModelIn(BaseModel):
     key: str
 
     @validator('key')

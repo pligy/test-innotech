@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Form, Depends, HTTPException, status
 from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse
 
-from app.models.appsec import AppSecRequest
+from app.models.appsec import AppSecModelIn
 from app.api.dependencies import get_token_or_raise_http_exc
 from app.service.utils import generate_token
 from app.service.constants import X_AUTH_TOKEN_COOKIE, APPSEC_PRACTICES, LOGIN_FORM_HTML, LOGIN_SUCCESS_HTML
@@ -37,6 +37,6 @@ async def login(request: Request, username: str = Form(...), password: str = For
 
 
 @router.get("/appsec", response_class=JSONResponse)
-async def appsec(request: AppSecRequest = Depends(), _token: str = Depends(get_token_or_raise_http_exc)):
-    key = request.key
+async def appsec(model_in: AppSecModelIn = Depends(), _token: str = Depends(get_token_or_raise_http_exc)):
+    key = model_in.key
     return APPSEC_PRACTICES[key]

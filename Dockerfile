@@ -4,6 +4,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
-EXPOSE 6000
+ARG DEFAULT_PORT
+ENV DEFAULT_PORT=${DEFAULT_PORT}
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6000"]
+EXPOSE ${DEFAULT_PORT}
+
+CMD ["sh", "-c", "uvicorn app.app:app --host 0.0.0.0 --port ${DEFAULT_PORT}"]

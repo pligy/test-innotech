@@ -2,25 +2,27 @@ version: '3.3'
 
 services:
   app:
-    build: .
     container_name: app
+    build:
+      context: .
+      args:
+        DEFAULT_PORT: ${DEFAULT_PORT}
     ports:
-      - "6000:6000"
-#    environment:
-#      - DEFAULT_PORT=${DEFAULT_PORT}
-#    ports:
-#      - "${DEFAULT_PORT}:${DEFAULT_PORT}"
+      - "${DEFAULT_PORT}:${DEFAULT_PORT}"
+    env_file:
+      - .env
 
   nginx:
-    image: nginx:latest
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.nginx
     container_name: nginx
-#    environment:
-#      - DEFAULT_PORT=${DEFAULT_PORT}
-    volumes:
-#      - ./.env:/etc/nginx/.env
-      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
     depends_on:
       - app
-#    command: /bin/sh -c "envsubst '\$DEFAULT_PORT' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    environment:
+      - DEFAULT_PORT=${DEFAULT_PORT}
+    env_file:
+      - .env
+

@@ -39,3 +39,15 @@ LOGIN_SUCCESS_HTML = """
     </body>
 </html>
 """
+
+LOGIN_FAILURE_HTML = """
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Login Failed</title>
+    </head>
+    <body>
+        <p>Incorrect username or password</p>
+    </body>
+</html>
+"""

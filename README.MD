@@ -5,17 +5,17 @@
 **Запуск:**
 
 ```commandline
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 **Ссылка на docker image:**
 
 ```commandline
-https://hub.docker.com/r/pl1gy/test-innotech/
+https://hub.docker.com/r/pl1gy/test-innotech-small/
 ```
 
 **Имя образа:**
 
 ```commandline
-pl1gy/test-innotech
+pl1gy/test-innotech-small
 ```

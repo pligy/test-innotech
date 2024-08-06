@@ -4,7 +4,7 @@ from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse
 from app.models.appsec import AppSecModelIn
 from app.api.dependencies import get_token_or_raise_http_exc
 from app.service.utils import generate_token
-from app.service.constants import X_AUTH_TOKEN_COOKIE, APPSEC_PRACTICES, LOGIN_FORM_HTML, LOGIN_SUCCESS_HTML
+from app.service.constants import X_AUTH_TOKEN_COOKIE, APPSEC_PRACTICES, LOGIN_FORM_HTML, LOGIN_SUCCESS_HTML, LOGIN_FAILURE_HTML
 from app.models.config import settings
 
 router = APIRouter()
@@ -20,7 +20,7 @@ async def login_form():
 
 
 @router.post("/login", response_class=HTMLResponse)
-async def login(request: Request, username: str = Form(...), password: str = Form(...)):
+async def login(username: str = Form(...), password: str = Form(...)):
     if username == settings.admin_username and password == settings.admin_password:
         token = generate_token(username, password)
         response = HTMLResponse(content=LOGIN_SUCCESS_HTML)
@@ -33,10 +33,10 @@ async def login(request: Request, username: str = Form(...), password: str = For
         )
         return response
     else:
-        raise HTTPException(status_code=401, detail="Incorrect username or password")
+        return LOGIN_FAILURE_HTML
 
 
 @router.get("/appsec", response_class=JSONResponse)
-async def appsec(model_in: AppSecModelIn = Depends(), _token: str = Depends(get_token_or_raise_http_exc)):
+async def appsec(model_in: AppSecModelIn = Depends(), _: str = Depends(get_token_or_raise_http_exc)):
     key = model_in.key
     return APPSEC_PRACTICES[key]

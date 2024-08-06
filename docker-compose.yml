@@ -2,24 +2,10 @@ version: '3.3'
 
 services:
   app:
-    image: pl1gy/test-innotech
+    image: pl1gy/test-innotech-small
     container_name: app
     ports:
       - "${DEFAULT_PORT}:${DEFAULT_PORT}"
-    env_file:
-      - .env
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.nginx
-    container_name: nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - app
-    environment:
-      - DEFAULT_PORT=${DEFAULT_PORT}
     env_file:
       - .env
 

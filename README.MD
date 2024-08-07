@@ -17,5 +17,5 @@ https://hub.docker.com/r/pl1gy/test-innotech-small/
 **Имя образа:**
 
 ```commandline
-pl1gy/test-innotech-small
+pl1gy/test-innotech-small:latest
 ```
